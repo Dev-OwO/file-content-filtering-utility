@@ -25,5 +25,7 @@ public interface FilterType {
 	 * @return список строк
 	 */
 	List<String> getAll();
+	
+	FilterStatistic getFilterStatistic();
 
 }

@@ -32,6 +32,11 @@ public class IntegerFilterType implements FilterType {
 		return Collections.unmodifiableList(valueList);
 	}
 
+	@Override
+	public FilterStatistic getFilterStatistic() {
+		return intFilterStat;
+	}
+
 	/**
 	 * сбор статистики по целочисленным значениям
 	 */
@@ -45,11 +50,11 @@ public class IntegerFilterType implements FilterType {
 		void add(String input) {
 			int i = Integer.parseInt(input);
 			sum += i;
-			if(i < minValue) {
+			if(minValueString == null || i < minValue) {
 				minValue = i;
 				minValueString = input;
 			}
-			if(i > maxValue) {
+			if(maxValueString == null || i > maxValue) {
 				maxValue = i;
 				maxValueString = input;
 			}
@@ -62,23 +67,33 @@ public class IntegerFilterType implements FilterType {
 		
 		@Override
 		public String getMin() {
-			return minValueString;
+			return minValueString == null ?
+					"-" : minValueString;
 		}
 		
 		@Override
 		public String getMax() {
-			return maxValueString;
+			return maxValueString == null ?
+					"-" : maxValueString;
 		}
 		
 		@Override
 		public String getSum() {
-			return String.valueOf(sum);
+			return getCount() == 0 ? 
+					"-" : String.valueOf(sum);
 		}
 		
 		@Override
 		public String getAverage() {
+			if(getCount() == 0)
+				return "-";
 			double avr = (double)sum / getCount();
-			return  String.valueOf(avr);
+			String avrStr;
+			if(avr % Math.round(avr) == 0)
+				avrStr = String.valueOf((int)avr);
+			else
+				avrStr = String.valueOf(avr);
+			return avrStr;
 		}
 		
 	}
