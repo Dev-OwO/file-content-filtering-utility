@@ -4,6 +4,10 @@ public interface FilterNumberStatistic extends FilterStatistic {
 	
 	String getSum();
 	
+	String getMin();
+	
+	String getMax();
+	
 	String getAverage();
 	
 	default String getFull() {
