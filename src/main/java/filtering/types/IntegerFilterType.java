@@ -16,7 +16,7 @@ public class IntegerFilterType implements FilterType {
 		try {
 			getValueFromString(input);
 			return true;
-		} catch(NumberFormatException e) {
+		} catch(Exception e) {
 			return false;
 		}
 	}

@@ -16,12 +16,24 @@ public class FloatFilterType implements FilterType {
 		try {
 			getValueFromString(input);
 			return true;
-		} catch(NumberFormatException e) {
+		} catch(Exception e) {
 			return false;
 		}
 	}
 	
 	private float getValueFromString(String input) {
+		float f = Float.parseFloat(input);
+		if(f == Float.POSITIVE_INFINITY ||
+				f == Float.NEGATIVE_INFINITY ||
+				Float.isNaN(f))
+			throw new NumberFormatException("Not float");
+		
+		// проверяем на double
+		double d = Double.parseDouble(input);
+		String fStr = String.valueOf(f);
+		String dStr = String.valueOf(d);
+		if(!fStr.equals(dStr))
+			throw new NumberFormatException("Not float");
 		return Float.parseFloat(input);
 	}
 

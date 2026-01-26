@@ -5,14 +5,15 @@ package filtering.types;
  */
 public interface FilterStatistic {
 	public static final String DEFAULT = "-";
+	public static final String LOG_SHORT = "Кол-во = %d";
 
 	long getCount();
 	
 	default String getShort() {
-		return String.format("Кол-во = %d", getCount());
+		return String.format(LOG_SHORT, getCount());
 	}
 	
 	default String getFull() {
-		return String.format("Кол-во = %d", getCount());
+		return getShort();
 	}
 }

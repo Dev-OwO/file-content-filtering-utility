@@ -9,8 +9,8 @@ import org.junit.Test;
 import filtering.types.IntegerFilterType.IntegerFilterStatistic;
 
 public class IntegerFilterTypeTest {
-	private static final String LOG_SHORT = "Кол-во = %d";
-	private static final String LOG_FULL = "Кол-во = %d, минимальное = %s, максимальное = %s, сумма = %s, среднее = %s";
+	private String LOG_SHORT;
+	private String LOG_FULL;
 	private IntegerFilterType ift;
 	private IntegerFilterStatistic ifs;
 	
@@ -18,6 +18,8 @@ public class IntegerFilterTypeTest {
 	public void createFilter() {
 		ift = new IntegerFilterType();
 		ifs = (IntegerFilterStatistic)ift.getFilterStatistic();
+		LOG_SHORT = FilterStatistic.LOG_SHORT;
+		LOG_FULL = FilterNumberStatistic.LOG_FULL;
 	}
 	
 	@Test
@@ -32,12 +34,15 @@ public class IntegerFilterTypeTest {
 	@Test
 	public void wrongValues() {
 		Assert.assertFalse(ift.isItType(null));
+		Assert.assertFalse(ift.isItType(""));
 		Assert.assertFalse(ift.isItType("Строка"));
 		Assert.assertFalse(ift.isItType("45.67f"));
 		Assert.assertFalse(ift.isItType("453.06575"));
 		Assert.assertFalse(ift.isItType("true"));
-		Assert.assertFalse(ift.isItType("10000000000000"));
-		Assert.assertFalse(ift.isItType("-10000000000000"));
+		Assert.assertFalse(ift.isItType(String.valueOf(Integer.MAX_VALUE + 100l)));
+		Assert.assertFalse(ift.isItType(String.valueOf(Integer.MIN_VALUE - 100l)));
+		Assert.assertFalse(ift.isItType(String.valueOf(Float.MAX_VALUE)));
+		Assert.assertFalse(ift.isItType(String.valueOf(Float.MIN_VALUE)));
 	}
 	
 	@Test
@@ -47,6 +52,10 @@ public class IntegerFilterTypeTest {
 		Assert.assertTrue(ift.isItType("-256"));
 		Assert.assertTrue(ift.isItType(String.valueOf(Integer.MAX_VALUE)));
 		Assert.assertTrue(ift.isItType(String.valueOf(Integer.MIN_VALUE)));
+		
+		Assert.assertTrue(ift.isItType("45"));
+		Assert.assertTrue(ift.isItType("100500"));
+		Assert.assertTrue(ift.isItType("1234567890123456789"));
 	}
 	
 	@Test
