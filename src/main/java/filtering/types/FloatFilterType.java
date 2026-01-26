@@ -21,20 +21,20 @@ public class FloatFilterType implements FilterType {
 		}
 	}
 	
-	private float getValueFromString(String input) {
-		float f = Float.parseFloat(input);
-		if(f == Float.POSITIVE_INFINITY ||
-				f == Float.NEGATIVE_INFINITY ||
-				Float.isNaN(f))
+	private double getValueFromString(String input) {
+		double d = Double.parseDouble(input);
+		if(d == Double.POSITIVE_INFINITY ||
+				d == Double.NEGATIVE_INFINITY ||
+				Double.isNaN(d))
 			throw new NumberFormatException("Not float");
 		
 		// проверяем на double
-		double d = Double.parseDouble(input);
-		String fStr = String.valueOf(f);
-		String dStr = String.valueOf(d);
-		if(!fStr.equals(dStr))
-			throw new NumberFormatException("Not float");
-		return Float.parseFloat(input);
+//		double d = Double.parseDouble(input);
+//		String fStr = String.valueOf(f);
+//		String dStr = String.valueOf(d);
+//		if(!fStr.equals(dStr))
+//			throw new NumberFormatException("Not float");
+		return d;
 	}
 
 	@Override
@@ -56,19 +56,19 @@ public class FloatFilterType implements FilterType {
 	public class FloatFilterStatistic implements FilterNumberStatistic {
 		private double sum = 0;
 		private String minValueString;
-		private float minValue;
+		private double minValue;
 		private String maxValueString;
-		private float maxValue;
+		private double maxValue;
 		
 		void add(String input) {
-			float f = getValueFromString(input);
-			sum += f;
-			if(minValueString == null || f < minValue) {
-				minValue = f;
+			double d = getValueFromString(input);
+			sum += d;
+			if(minValueString == null || d < minValue) {
+				minValue = d;
 				minValueString = input;
 			}
-			if(maxValueString == null || f > maxValue) {
-				maxValue = f;
+			if(maxValueString == null || d > maxValue) {
+				maxValue = d;
 				maxValueString = input;
 			}
 		}

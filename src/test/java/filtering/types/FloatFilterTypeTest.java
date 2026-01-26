@@ -41,10 +41,6 @@ public class FloatFilterTypeTest {
 		Assert.assertFalse(fft.isItType("Infinity"));
 		Assert.assertFalse(fft.isItType("-Infinity"));
 		Assert.assertFalse(fft.isItType("NaN"));
-		Assert.assertFalse(fft.isItType(String.valueOf(Double.MAX_VALUE)));
-		Assert.assertFalse(fft.isItType(String.valueOf(Double.MIN_VALUE)));
-		Assert.assertFalse(fft.isItType(String.valueOf("3.5E38")));
-		Assert.assertFalse(fft.isItType(String.valueOf("350000000000000000000000000000000000000"))); // 10 в 38 степени
 	}
 	
 	@Test
@@ -53,34 +49,13 @@ public class FloatFilterTypeTest {
 		Assert.assertTrue(fft.isItType("256"));
 		Assert.assertTrue(fft.isItType("-256"));
 		Assert.assertTrue(fft.isItType("100.245"));
-		Assert.assertTrue(fft.isItType(String.valueOf(Float.MAX_VALUE)));
-		Assert.assertTrue(fft.isItType(String.valueOf(Float.MIN_VALUE)));
-		Assert.assertTrue(fft.isItType(String.valueOf("340000000000000000000000000000000000000"))); // 10 в 38 степени
+		Assert.assertTrue(fft.isItType(String.valueOf(Double.MAX_VALUE)));
+		Assert.assertTrue(fft.isItType(String.valueOf(Double.MIN_VALUE)));
 		
 		Assert.assertTrue(fft.isItType("3.1415"));
 		Assert.assertTrue(fft.isItType("-0.001"));
 		Assert.assertTrue(fft.isItType("1.528535047E-25"));
 	}
-	
-//	@Test
-//	public void one() {
-//		fft.add("76.56");
-//		String logShort = String.format(LOG_SHORT, 1);
-//		Assert.assertEquals(logShort, ffs.getShort());
-//		String logFull = String.format(LOG_FULL, 1, "76.56", "76.56", "76.56", "76.56");
-//		Assert.assertEquals(logFull, ffs.getFull());
-//	}
-//	
-//	@Test
-//	public void two() {
-//		fft.add("3000000000000");
-//		fft.add("6000000000000");
-//		String logShort = String.format(LOG_SHORT, 2);
-//		Assert.assertEquals(logShort, ffs.getShort());
-//		String logFull = String.format(LOG_FULL, 2, "3000000000000", "6000000000000",
-//				"9000000000000", "4500000000000");
-//		Assert.assertEquals(logFull, ffs.getFull());
-//	}
 }
 
 

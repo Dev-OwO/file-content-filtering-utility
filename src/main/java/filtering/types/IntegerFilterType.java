@@ -21,8 +21,8 @@ public class IntegerFilterType implements FilterType {
 		}
 	}
 	
-	private int getValueFromString(String input) {
-		return Integer.parseInt(input);
+	private long getValueFromString(String input) {
+		return Long.parseLong(input);
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class IntegerFilterType implements FilterType {
 	class IntegerFilterStatistic implements FilterNumberStatistic {
 		private long sum = 0;
 		private String minValueString;
-		private int minValue;
+		private long minValue;
 		private String maxValueString;
-		private int maxValue;
+		private long maxValue;
 		
 		void add(String input) {
-			int i = getValueFromString(input);
+			long i = getValueFromString(input);
 			sum += i;
 			if(minValueString == null || i < minValue) {
 				minValue = i;

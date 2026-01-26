@@ -39,8 +39,6 @@ public class IntegerFilterTypeTest {
 		Assert.assertFalse(ift.isItType("45.67f"));
 		Assert.assertFalse(ift.isItType("453.06575"));
 		Assert.assertFalse(ift.isItType("true"));
-		Assert.assertFalse(ift.isItType(String.valueOf(Integer.MAX_VALUE + 100l)));
-		Assert.assertFalse(ift.isItType(String.valueOf(Integer.MIN_VALUE - 100l)));
 		Assert.assertFalse(ift.isItType(String.valueOf(Float.MAX_VALUE)));
 		Assert.assertFalse(ift.isItType(String.valueOf(Float.MIN_VALUE)));
 	}
