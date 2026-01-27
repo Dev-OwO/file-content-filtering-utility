@@ -1,5 +1,7 @@
 package filtering.types;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,7 +47,7 @@ public class IntegerFilterType implements FilterType {
 	 * сбор статистики по целочисленным значениям
 	 */
 	class IntegerFilterStatistic implements FilterNumberStatistic {
-		private long sum = 0;
+		private BigDecimal sum = BigDecimal.valueOf(0);
 		private String minValueString;
 		private long minValue;
 		private String maxValueString;
@@ -53,7 +55,7 @@ public class IntegerFilterType implements FilterType {
 		
 		void add(String input) {
 			long i = getValueFromString(input);
-			sum += i;
+			sum = sum.add(BigDecimal.valueOf(i));
 			if(minValueString == null || i < minValue) {
 				minValue = i;
 				minValueString = input;
@@ -91,13 +93,10 @@ public class IntegerFilterType implements FilterType {
 		public String getAverage() {
 			if(getCount() == 0)
 				return DEFAULT;
-			double avr = (double)sum / getCount();
-			String avrStr;
-			if(avr % Math.round(avr) == 0)
-				avrStr = String.valueOf((int)avr);
-			else
-				avrStr = String.valueOf(avr);
-			return avrStr;
+			BigDecimal c = BigDecimal.valueOf(getCount());
+			BigDecimal avr = sum.divide(c, 5, RoundingMode.HALF_UP);
+			avr = avr.stripTrailingZeros();
+			return avr.toString();
 		}
 		
 	}

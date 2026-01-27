@@ -83,7 +83,7 @@ public class IntegerFilterTypeTest {
 		ift.add("333");
 		String logShort = String.format(LOG_SHORT, 3);
 		Assert.assertEquals(logShort, ifs.getShort());
-		String logFull = String.format(LOG_FULL, 3, "333", maxInt, "4294967627", "1.4316558756666667E9");
+		String logFull = String.format(LOG_FULL, 3, "333", maxInt, "4294967627", "1431655875.66667");
 		Assert.assertEquals(logFull, ifs.getFull());
 	}
 	
