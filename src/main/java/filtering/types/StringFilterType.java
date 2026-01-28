@@ -14,6 +14,8 @@ public class StringFilterType implements FilterType {
 	@Override
 	public boolean isItType(String input) {
 		try {
+			if(input == null || input.isEmpty())
+				return false;
 			getValueFromString(input);
 			return true;
 		} catch(NumberFormatException e) {
@@ -27,6 +29,7 @@ public class StringFilterType implements FilterType {
 
 	@Override
 	public void add(String input) {
+		strFilterStat.add(input);
 		valueList.add(input);
 	}
 
@@ -41,10 +44,31 @@ public class StringFilterType implements FilterType {
 	}
 	
 	class StringFilterStatistic implements FilterStatistic {
+		private long min = Long.MAX_VALUE;
+		private long max = Long.MIN_VALUE;
+		
+		void add(String input) {
+			if(input.length() > max)
+				max = input.length();
+			if(input.length() < min)
+				min = input.length();
+		}
 
 		@Override
 		public long getCount() {
 			return valueList.size();
+		}
+		
+		@Override
+		public String getMin() {
+			return min == Long.MAX_VALUE ?
+					DEFAULT : String.valueOf(min);
+		}
+		
+		@Override
+		public String getMax() {
+			return max == Long.MIN_VALUE ?
+					DEFAULT : String.valueOf(max);
 		}
 		
 	}

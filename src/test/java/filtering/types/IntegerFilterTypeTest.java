@@ -35,6 +35,7 @@ public class IntegerFilterTypeTest {
 	public void wrongValues() {
 		Assert.assertFalse(ift.isItType(null));
 		Assert.assertFalse(ift.isItType(""));
+		Assert.assertFalse(ift.isItType("null"));
 		Assert.assertFalse(ift.isItType("Строка"));
 		Assert.assertFalse(ift.isItType("45.67f"));
 		Assert.assertFalse(ift.isItType("453.06575"));

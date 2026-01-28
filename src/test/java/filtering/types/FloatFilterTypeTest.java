@@ -35,6 +35,7 @@ public class FloatFilterTypeTest {
 	public void wrongValues() {
 		Assert.assertFalse(fft.isItType(null));
 		Assert.assertFalse(fft.isItType(""));
+		Assert.assertFalse(fft.isItType("null"));
 		Assert.assertFalse(fft.isItType("Строка"));
 		Assert.assertFalse(fft.isItType("100-455"));
 		Assert.assertFalse(fft.isItType("true"));

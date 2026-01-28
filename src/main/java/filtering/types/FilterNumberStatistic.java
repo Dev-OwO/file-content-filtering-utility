@@ -5,15 +5,11 @@ public interface FilterNumberStatistic extends FilterStatistic {
 	
 	String getSum();
 	
-	String getMin();
-	
-	String getMax();
-	
 	String getAverage();
 	
 	default String getFull() {
-		return String.format(LOG_FULL, getCount(), getMin(), getMax(), getSum(), getAverage()
-				);
+		return String.format(LOG_FULL, getCount(), getMin(), getMax(),
+				getSum(), getAverage());
 	}
 
 }
