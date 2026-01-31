@@ -13,6 +13,7 @@ class ArgsReader {
 	boolean showShortStatistic = false;
 	boolean showFullStatistic = false;
 	List<String> files = new LinkedList<>();
+	List<String> wrongArgs = new LinkedList<>();
 	
 	private String prevArg;
 	
@@ -34,14 +35,23 @@ class ArgsReader {
 	}
 	
 	private void checkFlag(String flag) {
+		if(prevArg != null) {
+			wrongArgs.add(prevArg);
+			prevArg = null;
+		}
+		
 		if(flag.equals("-a"))
 			addToExist = true;
 		else if(flag.equals("-s"))
 			showShortStatistic = true;
 		else if(flag.equals("-f"))
 			showFullStatistic = true;
-		else if(flag.startsWith("-"))
+		else if(flag.equals("-o"))
 			prevArg = flag;
+		else if(flag.equals("-p"))
+			prevArg = flag;
+		else
+			wrongArgs.add(flag);
 	}
 
 }
