@@ -1,5 +1,6 @@
 package filtering;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,13 +8,14 @@ import java.util.List;
  * класс разбора аргументов командной строки
  */
 class ArgsReader {
-	String path = "";
-	String prefix = "";
-	boolean addToExist = false;
-	boolean showShortStatistic = false;
-	boolean showFullStatistic = false;
-	List<String> files = new LinkedList<>();
-	List<String> wrongArgs = new LinkedList<>();
+	private String path = "";
+	private String prefix = "";
+	private boolean addToExist = false;
+	private boolean showShortStatistic = false;
+	private boolean showFullStatistic = false;
+	
+	private List<String> files = new LinkedList<>();
+	private List<String> wrongArgs = new LinkedList<>();
 	
 	private String prevArg;
 	
@@ -25,7 +27,7 @@ class ArgsReader {
 			}
 			
 			if(prevArg == null)
-				files.add(a);
+				getFiles().add(a);
 			else if(prevArg.equals("-o"))
 				path = a;
 			else if(prevArg.equals("-p"))
@@ -36,7 +38,7 @@ class ArgsReader {
 	
 	private void checkFlag(String flag) {
 		if(prevArg != null) {
-			wrongArgs.add(prevArg);
+			getWrongArgs().add(prevArg);
 			prevArg = null;
 		}
 		
@@ -51,7 +53,35 @@ class ArgsReader {
 		else if(flag.equals("-p"))
 			prevArg = flag;
 		else
-			wrongArgs.add(flag);
+			getWrongArgs().add(flag);
+	}
+
+	List<String> getWrongArgs() {
+		return Collections.unmodifiableList(wrongArgs);
+	}
+
+	List<String> getFiles() {
+		return Collections.unmodifiableList(files);
+	}
+
+	boolean isShowFullStatistic() {
+		return showFullStatistic;
+	}
+
+	boolean isShowShortStatistic() {
+		return showShortStatistic;
+	}
+
+	boolean isAddToExist() {
+		return addToExist;
+	}
+
+	String getPrefix() {
+		return prefix;
+	}
+
+	String getPath() {
+		return path;
 	}
 
 }

@@ -8,6 +8,12 @@ import java.util.List;
 public interface FilterType {
 	
 	/**
+	 * получить название фильтра
+	 * @return название фильтра
+	 */
+	String getFilterName();
+	
+	/**
 	 * является ли заданное строковое представление заданным типом
 	 * @param input строковое представление
 	 * @return является или нет

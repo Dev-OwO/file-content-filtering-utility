@@ -10,6 +10,11 @@ import java.util.List;
 public class FloatFilterType implements FilterType {
 	private FloatFilterStatistic floatFilterStat = new FloatFilterStatistic();
 	private List<String> valueList = new LinkedList<>();
+	
+	@Override
+	public String getFilterName() {
+		return "float";
+	}
 
 	@Override
 	public boolean isItType(String input) {

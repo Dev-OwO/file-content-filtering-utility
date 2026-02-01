@@ -10,6 +10,11 @@ import java.util.List;
 public class StringFilterType implements FilterType {
 	private StringFilterStatistic strFilterStat = new StringFilterStatistic();
 	private List<String> valueList = new LinkedList<>();
+	
+	@Override
+	public String getFilterName() {
+		return "string";
+	}
 
 	@Override
 	public boolean isItType(String input) {

@@ -20,12 +20,12 @@ public class ArgsReaderTest {
 		String[] a = {"int.txt", "float.txt", "string.txt"};
 		argsReader.read(a);
 		
-		Assert.assertEquals("", argsReader.path);
-		Assert.assertEquals("", argsReader.prefix);
-		Assert.assertFalse(argsReader.addToExist);
-		Assert.assertFalse(argsReader.showShortStatistic);
-		Assert.assertFalse(argsReader.showFullStatistic);
-		Assert.assertEquals(Arrays.asList(a), argsReader.files);
+		Assert.assertEquals("", argsReader.getPath());
+		Assert.assertEquals("", argsReader.getPrefix());
+		Assert.assertFalse(argsReader.isAddToExist());
+		Assert.assertFalse(argsReader.isShowShortStatistic());
+		Assert.assertFalse(argsReader.isShowFullStatistic());
+		Assert.assertEquals(Arrays.asList(a), argsReader.getFiles());
 	}
 	
 	@Test
@@ -34,12 +34,12 @@ public class ArgsReaderTest {
 		String[] f = {"int.txt", "float.txt", "string.txt"};
 		argsReader.read(a);
 		
-		Assert.assertEquals("my_job", argsReader.path);
-		Assert.assertEquals("file_", argsReader.prefix);
-		Assert.assertTrue(argsReader.addToExist);
-		Assert.assertTrue(argsReader.showShortStatistic);
-		Assert.assertTrue(argsReader.showFullStatistic);
-		Assert.assertEquals(Arrays.asList(f), argsReader.files);
+		Assert.assertEquals("my_job", argsReader.getPath());
+		Assert.assertEquals("file_", argsReader.getPrefix());
+		Assert.assertTrue(argsReader.isAddToExist());
+		Assert.assertTrue(argsReader.isShowShortStatistic());
+		Assert.assertTrue(argsReader.isShowFullStatistic());
+		Assert.assertEquals(Arrays.asList(f), argsReader.getFiles());
 	}
 	
 	@Test
@@ -47,13 +47,13 @@ public class ArgsReaderTest {
 		String[] a = {"-o", "-p", "-b", "-c"};
 		argsReader.read(a);
 		
-		Assert.assertEquals("", argsReader.path);
-		Assert.assertEquals("", argsReader.prefix);
-		Assert.assertFalse(argsReader.addToExist);
-		Assert.assertFalse(argsReader.showShortStatistic);
-		Assert.assertFalse(argsReader.showFullStatistic);
-		Assert.assertEquals(Collections.emptyList(), argsReader.files);
-		Assert.assertEquals(Arrays.asList(a), argsReader.wrongArgs);
+		Assert.assertEquals("", argsReader.getPath());
+		Assert.assertEquals("", argsReader.getPrefix());
+		Assert.assertFalse(argsReader.isAddToExist());
+		Assert.assertFalse(argsReader.isShowShortStatistic());
+		Assert.assertFalse(argsReader.isShowFullStatistic());
+		Assert.assertEquals(Collections.emptyList(), argsReader.getFiles());
+		Assert.assertEquals(Arrays.asList(a), argsReader.getWrongArgs());
 	}
 	
 	@Test
@@ -62,12 +62,12 @@ public class ArgsReaderTest {
 		String[] f = {"int.txt", "float.txt", "string.txt", "string2.txt"};
 		argsReader.read(a);
 		
-		Assert.assertEquals("my_job", argsReader.path);
-		Assert.assertEquals("file_", argsReader.prefix);
-		Assert.assertTrue(argsReader.addToExist);
-		Assert.assertTrue(argsReader.showShortStatistic);
-		Assert.assertTrue(argsReader.showFullStatistic);
-		Assert.assertEquals(Arrays.asList(f), argsReader.files);
+		Assert.assertEquals("my_job", argsReader.getPath());
+		Assert.assertEquals("file_", argsReader.getPrefix());
+		Assert.assertTrue(argsReader.isAddToExist());
+		Assert.assertTrue(argsReader.isShowShortStatistic());
+		Assert.assertTrue(argsReader.isShowFullStatistic());
+		Assert.assertEquals(Arrays.asList(f), argsReader.getFiles());
 	}
 	
 	

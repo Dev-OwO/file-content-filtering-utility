@@ -12,6 +12,11 @@ import java.util.List;
 public class IntegerFilterType implements FilterType {
 	private IntegerFilterStatistic intFilterStat = new IntegerFilterStatistic();
 	private List<String> valueList = new LinkedList<>();
+	
+	@Override
+	public String getFilterName() {
+		return "integer";
+	}
 
 	@Override
 	public boolean isItType(String input) {
