@@ -15,15 +15,15 @@ import filtering.types.FilterType;
  * класс для чтения и записи строк в файлах
  */
 class FileManager {
-	String path = "";
+	String path = ".";
 	String prefix = "";
 	boolean addToExist = false;
 	
 	FileManager(String path, String prefix, boolean addToExist) {
-		this.path = path;
-		if(path.isEmpty())
-			this.path = ".";
-		this.prefix = prefix;
+		if(path != null && !path.isEmpty())
+			this.path = path;
+		if(prefix != null && !prefix.isEmpty())
+			this.prefix = prefix;
 		this.addToExist = addToExist;
 	}
 	
@@ -76,7 +76,7 @@ class FileManager {
 		try(FileWriter fw = new FileWriter(f, addToExist);
 				BufferedWriter bw = new BufferedWriter(fw)) {
 			for(String c: content) {
-				bw.write(c);
+				bw.write(c + "\n");
 			}
 		} catch (IOException e) {
 			System.out.println("Ошибка записи в файл " + f.getAbsolutePath() + ": " + e.getMessage());
