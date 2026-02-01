@@ -1,13 +1,10 @@
 package filtering;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,8 +16,7 @@ import org.junit.Test;
 import filtering.types.IntegerFilterType;
 import filtering.types.StringFilterType;
 
-public class FileManagerTest {
-	private static final String testPostfix = "_for_test";
+public class FileManagerWriteTest {
 	private static final String testStringFile = "strings.txt";
 	private static final String testIntegerFile = "integers.txt";
 	private FileManager fileManager;
@@ -33,54 +29,12 @@ public class FileManagerTest {
 		sft = getTestStringFilterType();
 	}
 	
-	@Test
-	public void emptyRead() {
-		fileManager = new FileManager(null, null, false);
-		List<String> content = fileManager.getContentFromFiles(Collections.emptyList());
-		Assert.assertEquals(Collections.emptyList(), content);
-	}
-	
-	@Test
-	public void oneFileRead() {
-		String testFileName = "text" + testPostfix + ".txt";
-		String testFilePath = "." + File.separator + testFileName;
-		List<String> contentTest = Arrays.asList("test1", "tre sdf", "356 4536");
-		createFile(testFilePath, contentTest);
-		
-		fileManager = new FileManager(null, null, false);
-		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName));
-		Assert.assertEquals(contentTest, content);
-	}
-	
-	@Test
-	public void twoFilesRead() {
-		String testFileName = "text" + testPostfix + ".txt";
-		String testFilePath = "." + File.separator + testFileName;
-		List<String> contentTest = Arrays.asList("10.009", "test1", "tre sdf", "356 4536");
-		createFile(testFilePath, contentTest);
-		String testFileName2 = "2text2" + testPostfix + ".txt";
-		String testFilePath2 = "." + File.separator + testFileName2;
-		List<String> contentTest2 = Arrays.asList("222", "", "sdf segtwreg sd gfdsg d", "567 bags", "45,76");
-		createFile(testFilePath2, contentTest2);
-		
-		fileManager = new FileManager(null, null, false);
-		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName, testFileName2));
-		List<String> allContent = new LinkedList<>();
-		allContent.addAll(contentTest);
-		allContent.addAll(contentTest2);
-		Assert.assertEquals(allContent, content);
-	}
-	
-	@Test
-	public void oneFileReadAnotherType() {
-		String testFileName = "text" + testPostfix + ".log";
-		String testFilePath = "." + File.separator + testFileName;
-		List<String> contentTest = Arrays.asList("test1", "tre sdf", "356 4536");
-		createFile(testFilePath, contentTest);
-		
-		fileManager = new FileManager(null, null, false);
-		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName));
-		Assert.assertEquals(contentTest, content);
+	private StringFilterType getTestStringFilterType() {
+		StringFilterType sft = new StringFilterType();
+		sft.add("qwerty");
+		sft.add("600 + 677");
+		sft.add("0000 ytghhj");
+		return sft;
 	}
 	
 	@Test
@@ -174,14 +128,6 @@ public class FileManagerTest {
 		fileManager.saveToFiles(Arrays.asList(sft));
 	}
 	
-	private StringFilterType getTestStringFilterType() {
-		StringFilterType sft = new StringFilterType();
-		sft.add("qwerty");
-		sft.add("600 + 677");
-		sft.add("0000 ytghhj");
-		return sft;
-	}
-	
 	@After
 	public void deleteCreatedFiles() {
 		File workspace = new File(".");
@@ -189,28 +135,11 @@ public class FileManagerTest {
 		for(File d: Arrays.asList(workspace, temp)) {
 			for(File f: d.listFiles()) {
 				String fn = f.getName();
-				if(fn.contains(testPostfix))
-					f.delete();
 				if(fn.endsWith(testStringFile))
 					f.delete();
 				if(fn.endsWith(testIntegerFile))
 					f.delete();
 			}
-		}
-	}
-	
-	/**
-	 * создание файла
-	 */
-	private void createFile(String testFilePath, List<String> content) {
-		File f = new File(testFilePath);
-		try(FileWriter fw = new FileWriter(f);
-				BufferedWriter bw = new BufferedWriter(fw)) {
-			for(String c: content) {
-				bw.write(c + "\n");
-			}
-		} catch (IOException e) {
-			System.out.println("Ошибка записи в файл " + f.getAbsolutePath() + ": " + e.getMessage());
 		}
 	}
 	
@@ -231,4 +160,5 @@ public class FileManagerTest {
 		}
 		return content;
 	}
+
 }
