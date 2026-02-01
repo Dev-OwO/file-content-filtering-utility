@@ -15,7 +15,7 @@ public class IntegerFilterType implements FilterType {
 	
 	@Override
 	public String getFilterName() {
-		return "integer";
+		return "integers";
 	}
 
 	@Override

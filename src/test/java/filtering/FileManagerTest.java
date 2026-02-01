@@ -11,14 +11,25 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import filtering.types.IntegerFilterType;
 import filtering.types.StringFilterType;
 
 public class FileManagerTest {
 	private static final String testPostfix = "_for_test";
+	private static final String testStringFile = "strings.txt";
+	private static final String testIntegerFile = "integers.txt";
 	FileManager fileManager;
+	String anotherPath;
+	
+	@Before
+	public void getAnotherPath() {
+		anotherPath = System.getProperty("java.io.tmpdir");
+	}
 	
 	@Test
 	public void emptyRead() {
@@ -60,60 +71,146 @@ public class FileManagerTest {
 	}
 	
 	@Test
-	public void oneTypeWrite() {
+	public void oneFileReadAnotherType() {
+		String testFileName = "text" + testPostfix + ".log";
+		String testFilePath = "." + File.separator + testFileName;
+		List<String> contentTest = Arrays.asList("test1", "tre sdf", "356 4536");
+		createFile(testFilePath, contentTest);
+		
 		fileManager = new FileManager(null, null, false);
+		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName));
+		Assert.assertEquals(contentTest, content);
+	}
+	
+	@Test
+	public void oneTypeWrite() {
 		StringFilterType sft = new StringFilterType();
 		sft.add("qwerty");
 		sft.add("600 + 677");
 		sft.add("0000 ytghhj");
+		
+		fileManager = new FileManager(null, null, false);
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
-		List<String> content = getContentFromFile("." + File.separator + "string.txt");
+		List<String> content = getContentFromFile("." + File.separator + testStringFile);
 		Assert.assertEquals(sft.getAll(), content);
 	}
 	
 	@Test
 	public void oneTypeRewrite() {
-		fileManager = new FileManager(null, null, false);
 		StringFilterType sft = new StringFilterType();
 		sft.add("qwerty");
 		sft.add("600 + 677");
 		sft.add("0000 ytghhj");
+		
+		fileManager = new FileManager(null, null, false);
 		fileManager.saveToFiles(Arrays.asList(sft));
 		sft.add("wett sdgdfh цыеппы кп hj");
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
-		List<String> content = getContentFromFile("." + File.separator + "string.txt");
+		List<String> content = getContentFromFile("." + File.separator + testStringFile);
 		Assert.assertEquals(sft.getAll(), content);
 	}
 	
-//	@Test
-//	public void oneTypeWriteDouble() {
-//		fileManager = new FileManager(null, null, true);
-//		StringFilterType sft = new StringFilterType();
-//		sft.add("qwerty");
-//		sft.add("600 + 677");
-//		sft.add("0000 ytghhj");
-//		fileManager.saveToFiles(Arrays.asList(sft));
-//		fileManager.saveToFiles(Arrays.asList(sft));
-//		
-//		List<String> content = getContentFromFile("." + File.separator + "string.txt");
-//		List<String> allContent = new LinkedList<>();
-//		allContent.addAll(sft.getAll());
-//		allContent.addAll(sft.getAll());
-//		Assert.assertEquals(allContent, content);
-//	}
-//	
-//	@After
-//	public void deleteCreatedFiles() {
-//		File workspace = new File("");
-//		for(File f: workspace.listFiles()) {
-//			String fn = f.getName();
-//			if(!fn.contains(testPostfix))
-//				continue;
-//			f.delete();
-//		}
-//	}
+	@Test
+	public void oneTypeWriteDouble() {
+		StringFilterType sft = new StringFilterType();
+		sft.add("qwerty");
+		sft.add("600 + 677");
+		sft.add("0000 ytghhj");
+		
+		fileManager = new FileManager(null, null, true);
+		fileManager.saveToFiles(Arrays.asList(sft));
+		fileManager.saveToFiles(Arrays.asList(sft));
+		
+		List<String> content = getContentFromFile("." + File.separator + testStringFile);
+		List<String> allContent = new LinkedList<>();
+		allContent.addAll(sft.getAll());
+		allContent.addAll(sft.getAll());
+		Assert.assertEquals(allContent, content);
+	}
+	
+	@Test
+	public void oneTypeWritePrefix() {
+		StringFilterType sft = new StringFilterType();
+		sft.add("qwerty");
+		sft.add("600 + 677");
+		sft.add("0000 ytghhj");
+		
+		fileManager = new FileManager(null, "result_", false);
+		fileManager.saveToFiles(Arrays.asList(sft));
+		
+		List<String> content = getContentFromFile("." + File.separator + "result_" + testStringFile);
+		Assert.assertEquals(sft.getAll(), content);
+	}
+	
+	@Test
+	public void oneTypeWritePath() {
+		StringFilterType sft = new StringFilterType();
+		sft.add("qwerty");
+		sft.add("600 + 677");
+		sft.add("0000 ytghhj");
+		
+		fileManager = new FileManager(anotherPath, null, false);
+		fileManager.saveToFiles(Arrays.asList(sft));
+		
+		List<String> content = getContentFromFile(anotherPath + File.separator + testStringFile);
+		Assert.assertEquals(sft.getAll(), content);
+	}
+	
+	@Test
+	public void oneAndEmptyTypesWrite() {
+		StringFilterType sft = new StringFilterType();
+		sft.add("qwerty");
+		sft.add("600 + 677");
+		sft.add("0000 ytghhj");
+		IntegerFilterType ift = new IntegerFilterType();
+		
+		fileManager = new FileManager(null, null, false);
+		fileManager.saveToFiles(Arrays.asList(sft, ift));
+		
+		List<String> content = getContentFromFile("." + File.separator + testStringFile);
+		Assert.assertEquals(sft.getAll(), content);
+		File fileWithIntegers = new File("." + File.separator + testIntegerFile);
+		Assert.assertFalse(fileWithIntegers.exists());
+	}
+	
+	@Test
+	public void twoTypesWrite() {
+		StringFilterType sft = new StringFilterType();
+		sft.add("qwerty");
+		sft.add("600 + 677");
+		sft.add("0000 ytghhj");
+		IntegerFilterType ift = new IntegerFilterType();
+		ift.add("100");
+		ift.add("-200100");
+		
+		fileManager = new FileManager(anotherPath, "result_", true);
+		fileManager.saveToFiles(Arrays.asList(sft, ift));
+		
+		List<String> content = getContentFromFile(anotherPath + File.separator + "result_" + testStringFile);
+		Assert.assertEquals(sft.getAll(), content);
+		List<String> content2 = getContentFromFile(anotherPath + File.separator + "result_" + testIntegerFile);
+		Assert.assertEquals(ift.getAll(), content2);
+		
+	}
+	
+	@After
+	public void deleteCreatedFiles() {
+		File workspace = new File(".");
+		File temp = new File(anotherPath);
+		for(File d: Arrays.asList(workspace, temp)) {
+			for(File f: d.listFiles()) {
+				String fn = f.getName();
+				if(fn.contains(testPostfix))
+					f.delete();
+				if(fn.endsWith(testStringFile))
+					f.delete();
+				if(fn.endsWith(testIntegerFile))
+					f.delete();
+			}
+		}
+	}
 	
 	/**
 	 * создание файла

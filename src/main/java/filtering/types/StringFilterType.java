@@ -13,7 +13,7 @@ public class StringFilterType implements FilterType {
 	
 	@Override
 	public String getFilterName() {
-		return "string";
+		return "strings";
 	}
 
 	@Override

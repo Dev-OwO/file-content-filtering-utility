@@ -13,7 +13,7 @@ public class FloatFilterType implements FilterType {
 	
 	@Override
 	public String getFilterName() {
-		return "float";
+		return "floats";
 	}
 
 	@Override
