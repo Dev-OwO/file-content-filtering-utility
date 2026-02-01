@@ -62,13 +62,23 @@ public class MainTest {
 		Assert.assertEquals(content33, content3);
 	}
 	
-//	@After
-//	public void deleteCreatedFiles() {
-//		File workspace = new File(".");
-//		for(File f: workspace.listFiles()) {
-//			String fn = f.getName();
-//			if(fn.contains(prefixSample))
-//				f.delete();
-//		}
-//	}
+	@Test
+	public void checkInTxtMatch() {
+		Assert.assertTrue("in1.txt".matches(".*in.\\.txt"));
+		Assert.assertTrue("./in1.txt".matches(".*in.\\.txt"));
+		Assert.assertTrue("/tmp/in2.txt".matches(".*in\\d\\.txt"));
+		Assert.assertFalse("/tmp/ina.txt".matches(".*in\\d\\.txt"));
+	}
+	
+	@After
+	public void deleteCreatedFiles() {
+		File workspace = new File(".");
+		for(File f: workspace.listFiles()) {
+			String fn = f.getName();
+			if(fn.contains(prefixSample))
+				f.delete();
+			if(fn.matches(".*in\\d\\.txt"))
+				f.delete();
+		}
+	}
 }
