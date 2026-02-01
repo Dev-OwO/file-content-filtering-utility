@@ -27,7 +27,7 @@ class ArgsReader {
 			}
 			
 			if(prevArg == null)
-				getFiles().add(a);
+				files.add(a);
 			else if(prevArg.equals("-o"))
 				path = a;
 			else if(prevArg.equals("-p"))
@@ -38,7 +38,7 @@ class ArgsReader {
 	
 	private void checkFlag(String flag) {
 		if(prevArg != null) {
-			getWrongArgs().add(prevArg);
+			wrongArgs.add(prevArg);
 			prevArg = null;
 		}
 		
@@ -53,7 +53,7 @@ class ArgsReader {
 		else if(flag.equals("-p"))
 			prevArg = flag;
 		else
-			getWrongArgs().add(flag);
+			wrongArgs.add(flag);
 	}
 
 	List<String> getWrongArgs() {
