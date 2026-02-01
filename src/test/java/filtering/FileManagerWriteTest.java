@@ -146,7 +146,7 @@ public class FileManagerWriteTest {
 	/**
 	 * получение содержимого файлов
 	 */
-	List<String> getContentFromFile(String fileName) {
+	public static List<String> getContentFromFile(String fileName) {
 		List<String> content = new LinkedList<>();
 		File f = new File(fileName);
 		try(FileReader fr = new FileReader(f);

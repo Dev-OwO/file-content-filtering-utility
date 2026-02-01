@@ -28,6 +28,7 @@ public class FilteringContent {
 					continue;
 				
 				ft.add(s);
+				break;
 			}
 		}
 	}

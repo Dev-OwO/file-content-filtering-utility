@@ -109,7 +109,7 @@ public class FileManagerReadTest {
 	/**
 	 * создание файла
 	 */
-	private void createFile(String testFilePath, List<String> content) {
+	public static void createFile(String testFilePath, List<String> content) {
 		File f = new File(testFilePath);
 		try(FileWriter fw = new FileWriter(f);
 				BufferedWriter bw = new BufferedWriter(fw)) {
