@@ -20,6 +20,9 @@ class ArgsReader {
 	private String prevArg;
 	
 	void read(String[] args) {
+		if(args == null)
+			return;
+		
 		for(String a: args) {
 			if(a.startsWith("-")) {
 				checkFlag(a);

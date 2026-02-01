@@ -63,6 +63,14 @@ public class MainTest {
 	}
 	
 	@Test
+	public void testEmpty() {
+		FileContentFiltering.main(new String[0]);
+		FileContentFiltering.main("-s -a -p sample-".split(" "));
+		FileContentFiltering.main(null);
+		FileContentFiltering.main("-z -x -c sample-".split(" "));
+	}
+	
+	@Test
 	public void checkInTxtMatch() {
 		Assert.assertTrue("in1.txt".matches(".*in.\\.txt"));
 		Assert.assertTrue("./in1.txt".matches(".*in.\\.txt"));
