@@ -23,12 +23,14 @@ public class FileManagerTest {
 	private static final String testPostfix = "_for_test";
 	private static final String testStringFile = "strings.txt";
 	private static final String testIntegerFile = "integers.txt";
-	FileManager fileManager;
-	String anotherPath;
+	private FileManager fileManager;
+	private String anotherPath;
+	private StringFilterType sft;
 	
 	@Before
 	public void getAnotherPath() {
 		anotherPath = System.getProperty("java.io.tmpdir");
+		sft = getTestStringFilterType();
 	}
 	
 	@Test
@@ -61,7 +63,6 @@ public class FileManagerTest {
 		List<String> contentTest2 = Arrays.asList("222", "", "sdf segtwreg sd gfdsg d", "567 bags", "45,76");
 		createFile(testFilePath2, contentTest2);
 		
-		
 		fileManager = new FileManager(null, null, false);
 		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName, testFileName2));
 		List<String> allContent = new LinkedList<>();
@@ -84,11 +85,6 @@ public class FileManagerTest {
 	
 	@Test
 	public void oneTypeWrite() {
-		StringFilterType sft = new StringFilterType();
-		sft.add("qwerty");
-		sft.add("600 + 677");
-		sft.add("0000 ytghhj");
-		
 		fileManager = new FileManager(null, null, false);
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
@@ -98,11 +94,6 @@ public class FileManagerTest {
 	
 	@Test
 	public void oneTypeRewrite() {
-		StringFilterType sft = new StringFilterType();
-		sft.add("qwerty");
-		sft.add("600 + 677");
-		sft.add("0000 ytghhj");
-		
 		fileManager = new FileManager(null, null, false);
 		fileManager.saveToFiles(Arrays.asList(sft));
 		sft.add("wett sdgdfh цыеппы кп hj");
@@ -114,11 +105,6 @@ public class FileManagerTest {
 	
 	@Test
 	public void oneTypeWriteDouble() {
-		StringFilterType sft = new StringFilterType();
-		sft.add("qwerty");
-		sft.add("600 + 677");
-		sft.add("0000 ytghhj");
-		
 		fileManager = new FileManager(null, null, true);
 		fileManager.saveToFiles(Arrays.asList(sft));
 		fileManager.saveToFiles(Arrays.asList(sft));
@@ -132,11 +118,6 @@ public class FileManagerTest {
 	
 	@Test
 	public void oneTypeWritePrefix() {
-		StringFilterType sft = new StringFilterType();
-		sft.add("qwerty");
-		sft.add("600 + 677");
-		sft.add("0000 ytghhj");
-		
 		fileManager = new FileManager(null, "result_", false);
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
@@ -146,11 +127,6 @@ public class FileManagerTest {
 	
 	@Test
 	public void oneTypeWritePath() {
-		StringFilterType sft = new StringFilterType();
-		sft.add("qwerty");
-		sft.add("600 + 677");
-		sft.add("0000 ytghhj");
-		
 		fileManager = new FileManager(anotherPath, null, false);
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
@@ -160,10 +136,6 @@ public class FileManagerTest {
 	
 	@Test
 	public void oneAndEmptyTypesWrite() {
-		StringFilterType sft = new StringFilterType();
-		sft.add("qwerty");
-		sft.add("600 + 677");
-		sft.add("0000 ytghhj");
 		IntegerFilterType ift = new IntegerFilterType();
 		
 		fileManager = new FileManager(null, null, false);
@@ -177,10 +149,6 @@ public class FileManagerTest {
 	
 	@Test
 	public void twoTypesWrite() {
-		StringFilterType sft = new StringFilterType();
-		sft.add("qwerty");
-		sft.add("600 + 677");
-		sft.add("0000 ytghhj");
 		IntegerFilterType ift = new IntegerFilterType();
 		ift.add("100");
 		ift.add("-200100");
@@ -192,7 +160,26 @@ public class FileManagerTest {
 		Assert.assertEquals(sft.getAll(), content);
 		List<String> content2 = getContentFromFile(anotherPath + File.separator + "result_" + testIntegerFile);
 		Assert.assertEquals(ift.getAll(), content2);
-		
+	}
+	
+	@Test
+	public void oneTypeWriteWrongPrefix() {
+		fileManager = new FileManager(null, "re*sult?_", false);
+		fileManager.saveToFiles(Arrays.asList(sft));
+	}
+	
+	@Test
+	public void oneTypeWriteWrongPath() {
+		fileManager = new FileManager(anotherPath + File.separator + "new*dir?new", null, false);
+		fileManager.saveToFiles(Arrays.asList(sft));
+	}
+	
+	private StringFilterType getTestStringFilterType() {
+		StringFilterType sft = new StringFilterType();
+		sft.add("qwerty");
+		sft.add("600 + 677");
+		sft.add("0000 ytghhj");
+		return sft;
 	}
 	
 	@After
