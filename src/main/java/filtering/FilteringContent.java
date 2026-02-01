@@ -42,9 +42,9 @@ public class FilteringContent {
 		for(FilterType ft: filterList) {
 			FilterStatistic fs = ft.getFilterStatistic();
 			if(isShort)
-				fs.getShort();
+				System.out.println(fs.getShort());
 			if(isFull)
-				fs.getFull();
+				System.out.println(fs.getFull());
 		}
 	}
 	
