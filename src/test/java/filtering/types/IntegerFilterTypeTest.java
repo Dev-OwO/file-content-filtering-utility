@@ -18,8 +18,8 @@ public class IntegerFilterTypeTest {
 	public void createFilter() {
 		ift = new IntegerFilterType();
 		ifs = (IntegerFilterStatistic)ift.getFilterStatistic();
-		LOG_SHORT = FilterStatistic.LOG_SHORT;
-		LOG_FULL = FilterNumberStatistic.LOG_FULL;
+		LOG_SHORT = FilterStatistic.LOG_SHORT.replaceFirst("%s", "integers");
+		LOG_FULL = FilterNumberStatistic.LOG_FULL.replaceFirst("%s", "integers");
 	}
 	
 	@Test
@@ -87,15 +87,4 @@ public class IntegerFilterTypeTest {
 		String logFull = String.format(LOG_FULL, 3, "333", maxInt, "4294967627", "1431655875.66667");
 		Assert.assertEquals(logFull, ifs.getFull());
 	}
-	
-	// TODO не получилось
-//	@Test
-//	public void spetialValues() {
-//		ift.add("-4_030");
-//		ift.add("650_4444");
-//		String logShort = String.format(LOG_SHORT, 2);
-//		Assert.assertEquals(logShort, ifs.getShort());
-//		String logFull = String.format(LOG_FULL, 2, "-4_030", "650_4444", "6500414", "3250207");
-//		Assert.assertEquals(logFull, ifs.getFull());
-//	}
 }

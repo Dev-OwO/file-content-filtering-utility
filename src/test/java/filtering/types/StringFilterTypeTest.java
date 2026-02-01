@@ -18,8 +18,8 @@ public class StringFilterTypeTest {
 	public void createFilter() {
 		sft = new StringFilterType();
 		sfs = (StringFilterStatistic)sft.getFilterStatistic();
-		LOG_SHORT = FilterStatistic.LOG_SHORT;
-		LOG_FULL = FilterStatistic.LOG_FULL;
+		LOG_SHORT = FilterStatistic.LOG_SHORT.replaceFirst("%s", "strings");
+		LOG_FULL = FilterStatistic.LOG_FULL.replaceFirst("%s", "strings");
 	}
 	
 	@Test

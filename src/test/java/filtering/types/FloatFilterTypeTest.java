@@ -18,8 +18,8 @@ public class FloatFilterTypeTest {
 	public void createFilter() {
 		fft = new FloatFilterType();
 		ffs = (FloatFilterStatistic)fft.getFilterStatistic();
-		LOG_SHORT = FilterStatistic.LOG_SHORT;
-		LOG_FULL = FilterNumberStatistic.LOG_FULL;
+		LOG_SHORT = FilterStatistic.LOG_SHORT.replaceFirst("%s", "floats");
+		LOG_FULL = FilterNumberStatistic.LOG_FULL.replaceFirst("%s", "floats");
 	}
 	
 	@Test

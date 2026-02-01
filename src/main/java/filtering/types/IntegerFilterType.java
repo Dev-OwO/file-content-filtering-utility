@@ -70,6 +70,11 @@ public class IntegerFilterType implements FilterType {
 				maxValueString = input;
 			}
 		}
+
+		@Override
+		public String getTypeName() {
+			return getFilterName();
+		}
 		
 		@Override
 		public long getCount() {

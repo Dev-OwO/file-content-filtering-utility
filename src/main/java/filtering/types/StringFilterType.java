@@ -60,6 +60,11 @@ public class StringFilterType implements FilterType {
 		}
 
 		@Override
+		public String getTypeName() {
+			return getFilterName();
+		}
+
+		@Override
 		public long getCount() {
 			return valueList.size();
 		}
@@ -75,7 +80,6 @@ public class StringFilterType implements FilterType {
 			return max == Long.MIN_VALUE ?
 					DEFAULT : String.valueOf(max);
 		}
-		
 	}
 
 }

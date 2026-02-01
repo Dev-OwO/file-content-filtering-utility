@@ -32,13 +32,6 @@ public class FloatFilterType implements FilterType {
 				d == Double.NEGATIVE_INFINITY ||
 				Double.isNaN(d))
 			throw new NumberFormatException("Not float");
-		
-		// проверяем на double
-//		double d = Double.parseDouble(input);
-//		String fStr = String.valueOf(f);
-//		String dStr = String.valueOf(d);
-//		if(!fStr.equals(dStr))
-//			throw new NumberFormatException("Not float");
 		return d;
 	}
 
@@ -76,6 +69,11 @@ public class FloatFilterType implements FilterType {
 				maxValue = d;
 				maxValueString = input;
 			}
+		}
+
+		@Override
+		public String getTypeName() {
+			return getFilterName();
 		}
 
 		@Override
