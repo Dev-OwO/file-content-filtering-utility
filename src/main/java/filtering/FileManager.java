@@ -33,12 +33,11 @@ class FileManager {
 	 * @return общее содержимое всех файлов
 	 */
 	List<String> getContentFromFiles(List<String> fileNames) {
+		List<File> files = fileNames.stream().map(n -> new File(path + File.separator + n))
+				.filter(f -> f.exists()).toList();
+		
 		List<String> content = new LinkedList<>();
-		for(String fn: fileNames) {
-			File f = new File(path + File.separator + fn);
-			if(!f.exists())
-				continue;
-			
+		for(File f: files) {
 			try(FileReader fr = new FileReader(f);
 					BufferedReader br = new BufferedReader(fr)) {
 				String line;

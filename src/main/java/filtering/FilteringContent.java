@@ -23,13 +23,8 @@ public class FilteringContent {
 	 */
 	void filterStrings(List<String> input) {
 		for(String s: input) {
-			for(FilterType ft: filterList) {
-				if(!ft.isItType(s))
-					continue;
-				
-				ft.add(s);
-				break;
-			}
+			filterList.stream().filter(ft -> ft.isItType(s))
+				.limit(1).forEach(ft -> ft.add(s));
 		}
 	}
 	
