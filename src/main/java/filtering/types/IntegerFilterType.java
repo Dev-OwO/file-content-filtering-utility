@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * фильтрация и сбор целочисленных значений
+ * фильтрация и сбор целых чисел
  */
 public class IntegerFilterType implements FilterType {
 	private IntegerFilterStatistic intFilterStat = new IntegerFilterStatistic();
@@ -49,7 +49,7 @@ public class IntegerFilterType implements FilterType {
 	}
 
 	/**
-	 * сбор статистики по целочисленным значениям
+	 * сбор статистики по целым числам
 	 */
 	class IntegerFilterStatistic implements FilterNumberStatistic {
 		private BigDecimal sum = BigDecimal.valueOf(0);

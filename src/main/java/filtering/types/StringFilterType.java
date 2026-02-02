@@ -48,6 +48,9 @@ public class StringFilterType implements FilterType {
 		return strFilterStat;
 	}
 	
+	/**
+	 * сбор статистики по строкам
+	 */
 	class StringFilterStatistic implements FilterStatistic {
 		private long min = Long.MAX_VALUE;
 		private long max = Long.MIN_VALUE;

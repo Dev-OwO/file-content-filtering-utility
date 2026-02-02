@@ -7,12 +7,16 @@ import filtering.types.FilterStatistic;
 import filtering.types.FilterType;
 
 /**
- * Класс содержит фильтры данных разных типов
- * Добавляет данные в них и выводит статистику
+ * Класс содержит фильтры разных типов
+ * Отправляет в них данные и выводит статистику
  */
 public class FilteringContent {
 	private List<FilterType> filterList = new ArrayList<>();
 	
+	/**
+	 * добавить фильтр данных
+	 * @param ft фильтр данных
+	 */
 	void addFilterType(FilterType ft) {
 		filterList.add(ft);
 	}

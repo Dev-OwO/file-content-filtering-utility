@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * класс разбора аргументов командной строки
  */
-class ArgsReader {
+class ArgsParser {
 	private String path = "";
 	private String prefix = "";
 	private boolean addToExist = false;
@@ -19,7 +19,11 @@ class ArgsReader {
 	
 	private String prevArg;
 	
-	void read(String[] args) {
+	/**
+	 * разбор аргументов командной строки
+	 * @param args аргументы командной строки
+	 */
+	void parse(String[] args) {
 		if(args == null)
 			return;
 		

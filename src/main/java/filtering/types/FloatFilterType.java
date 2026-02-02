@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * фильтрация и сбор вещественных значений
+ * фильтрация и сбор вещественных чисел
  */
 public class FloatFilterType implements FilterType {
 	private FloatFilterStatistic floatFilterStat = new FloatFilterStatistic();
@@ -51,6 +51,9 @@ public class FloatFilterType implements FilterType {
 		return floatFilterStat;
 	}
 	
+	/**
+	 * сбор статистики по вещественным числам
+	 */
 	public class FloatFilterStatistic implements FilterNumberStatistic {
 		private double sum = 0;
 		private String minValueString;

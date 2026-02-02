@@ -32,6 +32,10 @@ public interface FilterType {
 	 */
 	List<String> getAll();
 	
+	/**
+	 * получить объект с данными статистики
+	 * @return данные статистики
+	 */
 	FilterStatistic getFilterStatistic();
 
 }

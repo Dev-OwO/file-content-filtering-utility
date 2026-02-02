@@ -12,12 +12,12 @@ import java.util.List;
 import filtering.types.FilterType;
 
 /**
- * класс для чтения и записи строк в файлах
+ * класс для чтения файлов и записи строк в файлы
  */
 class FileManager {
-	String path = ".";
-	String prefix = "";
-	boolean addToExist = false;
+	private String path = ".";
+	private String prefix = "";
+	private boolean addToExist = false;
 	
 	FileManager(String path, String prefix, boolean addToExist) {
 		if(path != null && !path.isEmpty())

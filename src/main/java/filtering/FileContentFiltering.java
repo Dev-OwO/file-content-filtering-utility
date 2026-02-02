@@ -11,9 +11,9 @@ import filtering.types.StringFilterType;
  * класс запуска утилиты по фильтрации содержимого файлов
  */
 public class FileContentFiltering {
-	private ArgsReader ar;
+	private ArgsParser argsParser;
 	private FileManager fileManager;
-	private FilteringContent fc;
+	private FilteringContent filteringContent;
 
 	public static void main(String[] args) {
 		FileContentFiltering fcf = new FileContentFiltering();
@@ -29,7 +29,7 @@ public class FileContentFiltering {
 	 */
 	private void filter(String[] args) {
 		readArgs(args);
-		List<String> fileNames = ar.getFiles();
+		List<String> fileNames = argsParser.getFiles();
 		if(fileNames == null || fileNames.isEmpty()) {
 			System.out.println("Нет файлов для обработки");
 			return;
@@ -45,15 +45,15 @@ public class FileContentFiltering {
 	
 	private void readArgs(String[] args) {
 		try {
-			ar = new ArgsReader();
-			ar.read(args);
+			argsParser = new ArgsParser();
+			argsParser.parse(args);
 		} catch(Exception exc) {
 			String msg = "При разборе аргументов командной строки произошла ошибка: " + exc.getMessage();
 			if(args != null)
 				msg += "\n" + "Убедитесь что вы правильно задали аргументы: " + String.join(" ", args);
 			throw new RuntimeException(msg);
 		}
-		List<String> wa = ar.getWrongArgs();
+		List<String> wa = argsParser.getWrongArgs();
 		if(!wa.isEmpty()) {
 			System.out.println("Есть неизвестные аргументы, они будут проигнорированы: " +
 					String.join(" ", wa));
@@ -62,7 +62,7 @@ public class FileContentFiltering {
 	
 	private List<String> getContent(List<String> fileNames) {
 		try {
-			fileManager = new FileManager(ar.getPath(), ar.getPrefix(), ar.isAddToExist());
+			fileManager = new FileManager(argsParser.getPath(), argsParser.getPrefix(), argsParser.isAddToExist());
 			return fileManager.getContentFromFiles(fileNames);
 		} catch(Exception exc) {
 			String msg = "При получении данных из файлов произошла ошибка: " + exc.getMessage();
@@ -72,9 +72,9 @@ public class FileContentFiltering {
 	}
 	
 	private void filterContent(List<String> content) {
-		fc = getIntFloatString();
+		filteringContent = getIntFloatString();
 		try {
-			fc.filterStrings(content);
+			filteringContent.filterStrings(content);
 		} catch(Exception exc) {
 			String msg = "При фильтрации данных произошла ошибка: " + exc.getMessage();
 			throw new RuntimeException(msg);
@@ -82,10 +82,10 @@ public class FileContentFiltering {
 	}
 	
 	private void save() {
-		List<FilterType> filterList = fc.getFilterList();
+		List<FilterType> filterList = filteringContent.getFilterList();
 		try {
 			fileManager.saveToFiles(filterList);
-			fc.printStatistics(ar.isShowShortStatistic(), ar.isShowFullStatistic());
+			filteringContent.printStatistics(argsParser.isShowShortStatistic(), argsParser.isShowFullStatistic());
 		} catch(Exception exc) {
 			String msg = "При сохранении и выводе статистики произошла ошибка: " + exc.getMessage();
 			throw new RuntimeException(msg);
@@ -98,7 +98,7 @@ public class FileContentFiltering {
 	 */
 	static FilteringContent getIntFloatString() {
 		FilteringContent fc = new FilteringContent();
-		// порядок следования важен
+		// порядок следования важен!
 		fc.addFilterType(new IntegerFilterType());
 		fc.addFilterType(new FloatFilterType());
 		fc.addFilterType(new StringFilterType());
