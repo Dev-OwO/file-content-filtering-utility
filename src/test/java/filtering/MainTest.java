@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * тестирование всего приложения
@@ -44,13 +44,13 @@ public class MainTest {
 				"100500",
 				"1234567890123456789");
 		List<String> content1 = FileManagerWriteTest.getContentFromFile("." + File.separator + "sample-integers.txt");
-		Assert.assertEquals(content11, content1);
+		Assertions.assertEquals(content11, content1);
 		
 		List<String> content22 = Arrays.asList("3.1415",
 				"-0.001",
 				"1.528535047E-25");
 		List<String> content2 = FileManagerWriteTest.getContentFromFile("." + File.separator + "sample-floats.txt");
-		Assert.assertEquals(content22, content2);
+		Assertions.assertEquals(content22, content2);
 		
 		List<String> content33 = Arrays.asList("Lorem ipsum dolor sit amet",
 				"Пример",
@@ -59,7 +59,7 @@ public class MainTest {
 				"Нормальная форма числа с плавающей запятой",
 				"Long");
 		List<String> content3 = FileManagerWriteTest.getContentFromFile("." + File.separator + "sample-strings.txt");
-		Assert.assertEquals(content33, content3);
+		Assertions.assertEquals(content33, content3);
 	}
 	
 	@Test
@@ -72,13 +72,13 @@ public class MainTest {
 	
 	@Test
 	public void checkInTxtMatch() {
-		Assert.assertTrue("in1.txt".matches(".*in.\\.txt"));
-		Assert.assertTrue("./in1.txt".matches(".*in.\\.txt"));
-		Assert.assertTrue("/tmp/in2.txt".matches(".*in\\d\\.txt"));
-		Assert.assertFalse("/tmp/ina.txt".matches(".*in\\d\\.txt"));
+		Assertions.assertTrue("in1.txt".matches(".*in.\\.txt"));
+		Assertions.assertTrue("./in1.txt".matches(".*in.\\.txt"));
+		Assertions.assertTrue("/tmp/in2.txt".matches(".*in\\d\\.txt"));
+		Assertions.assertFalse("/tmp/ina.txt".matches(".*in\\d\\.txt"));
 	}
 	
-	@After
+	@AfterEach
 	public void deleteCreatedFiles() {
 		File workspace = new File(".");
 		for(File f: workspace.listFiles()) {

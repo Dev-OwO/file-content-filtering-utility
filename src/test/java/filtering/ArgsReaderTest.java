@@ -3,14 +3,14 @@ package filtering;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ArgsReaderTest {
 	private ArgsReader argsReader;
 	
-	@Before
+	@BeforeEach
 	public void start() {
 		argsReader = new ArgsReader();
 	}
@@ -20,12 +20,12 @@ public class ArgsReaderTest {
 		String[] a = {"int.txt", "float.txt", "string.txt"};
 		argsReader.read(a);
 		
-		Assert.assertEquals("", argsReader.getPath());
-		Assert.assertEquals("", argsReader.getPrefix());
-		Assert.assertFalse(argsReader.isAddToExist());
-		Assert.assertFalse(argsReader.isShowShortStatistic());
-		Assert.assertFalse(argsReader.isShowFullStatistic());
-		Assert.assertEquals(Arrays.asList(a), argsReader.getFiles());
+		Assertions.assertEquals("", argsReader.getPath());
+		Assertions.assertEquals("", argsReader.getPrefix());
+		Assertions.assertFalse(argsReader.isAddToExist());
+		Assertions.assertFalse(argsReader.isShowShortStatistic());
+		Assertions.assertFalse(argsReader.isShowFullStatistic());
+		Assertions.assertEquals(Arrays.asList(a), argsReader.getFiles());
 	}
 	
 	@Test
@@ -34,12 +34,12 @@ public class ArgsReaderTest {
 		String[] f = {"int.txt", "float.txt", "string.txt"};
 		argsReader.read(a);
 		
-		Assert.assertEquals("my_job", argsReader.getPath());
-		Assert.assertEquals("file_", argsReader.getPrefix());
-		Assert.assertTrue(argsReader.isAddToExist());
-		Assert.assertTrue(argsReader.isShowShortStatistic());
-		Assert.assertTrue(argsReader.isShowFullStatistic());
-		Assert.assertEquals(Arrays.asList(f), argsReader.getFiles());
+		Assertions.assertEquals("my_job", argsReader.getPath());
+		Assertions.assertEquals("file_", argsReader.getPrefix());
+		Assertions.assertTrue(argsReader.isAddToExist());
+		Assertions.assertTrue(argsReader.isShowShortStatistic());
+		Assertions.assertTrue(argsReader.isShowFullStatistic());
+		Assertions.assertEquals(Arrays.asList(f), argsReader.getFiles());
 	}
 	
 	@Test
@@ -47,13 +47,13 @@ public class ArgsReaderTest {
 		String[] a = {"-o", "-p", "-b", "-c"};
 		argsReader.read(a);
 		
-		Assert.assertEquals("", argsReader.getPath());
-		Assert.assertEquals("", argsReader.getPrefix());
-		Assert.assertFalse(argsReader.isAddToExist());
-		Assert.assertFalse(argsReader.isShowShortStatistic());
-		Assert.assertFalse(argsReader.isShowFullStatistic());
-		Assert.assertEquals(Collections.emptyList(), argsReader.getFiles());
-		Assert.assertEquals(Arrays.asList(a), argsReader.getWrongArgs());
+		Assertions.assertEquals("", argsReader.getPath());
+		Assertions.assertEquals("", argsReader.getPrefix());
+		Assertions.assertFalse(argsReader.isAddToExist());
+		Assertions.assertFalse(argsReader.isShowShortStatistic());
+		Assertions.assertFalse(argsReader.isShowFullStatistic());
+		Assertions.assertEquals(Collections.emptyList(), argsReader.getFiles());
+		Assertions.assertEquals(Arrays.asList(a), argsReader.getWrongArgs());
 	}
 	
 	@Test
@@ -62,12 +62,12 @@ public class ArgsReaderTest {
 		String[] f = {"int.txt", "float.txt", "string.txt", "string2.txt"};
 		argsReader.read(a);
 		
-		Assert.assertEquals("my_job", argsReader.getPath());
-		Assert.assertEquals("file_", argsReader.getPrefix());
-		Assert.assertTrue(argsReader.isAddToExist());
-		Assert.assertTrue(argsReader.isShowShortStatistic());
-		Assert.assertTrue(argsReader.isShowFullStatistic());
-		Assert.assertEquals(Arrays.asList(f), argsReader.getFiles());
+		Assertions.assertEquals("my_job", argsReader.getPath());
+		Assertions.assertEquals("file_", argsReader.getPrefix());
+		Assertions.assertTrue(argsReader.isAddToExist());
+		Assertions.assertTrue(argsReader.isShowShortStatistic());
+		Assertions.assertTrue(argsReader.isShowFullStatistic());
+		Assertions.assertEquals(Arrays.asList(f), argsReader.getFiles());
 	}
 	
 	

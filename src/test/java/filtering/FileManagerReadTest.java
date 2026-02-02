@@ -9,9 +9,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class FileManagerReadTest {
 	private static final String testPostfix = "_for_test";
@@ -21,7 +21,7 @@ public class FileManagerReadTest {
 	public void emptyRead() {
 		fileManager = new FileManager(null, null, false);
 		List<String> content = fileManager.getContentFromFiles(Collections.emptyList());
-		Assert.assertEquals(Collections.emptyList(), content);
+		Assertions.assertEquals(Collections.emptyList(), content);
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class FileManagerReadTest {
 		
 		fileManager = new FileManager(null, null, false);
 		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName));
-		Assert.assertEquals(Collections.emptyList(), content);
+		Assertions.assertEquals(Collections.emptyList(), content);
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ public class FileManagerReadTest {
 		
 		fileManager = new FileManager(null, null, false);
 		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName));
-		Assert.assertEquals(Collections.emptyList(), content);
+		Assertions.assertEquals(Collections.emptyList(), content);
 	}
 	
 	@Test
@@ -50,7 +50,7 @@ public class FileManagerReadTest {
 		
 		fileManager = new FileManager(null, null, false);
 		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName));
-		Assert.assertEquals(Collections.emptyList(), content);
+		Assertions.assertEquals(Collections.emptyList(), content);
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ public class FileManagerReadTest {
 		
 		fileManager = new FileManager(null, null, false);
 		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName));
-		Assert.assertEquals(contentTest, content);
+		Assertions.assertEquals(contentTest, content);
 	}
 	
 	@Test
@@ -81,7 +81,7 @@ public class FileManagerReadTest {
 		List<String> allContent = new LinkedList<>();
 		allContent.addAll(contentTest);
 		allContent.addAll(contentTest2);
-		Assert.assertEquals(allContent, content);
+		Assertions.assertEquals(allContent, content);
 	}
 	
 	@Test
@@ -93,10 +93,10 @@ public class FileManagerReadTest {
 		
 		fileManager = new FileManager(null, null, false);
 		List<String> content = fileManager.getContentFromFiles(Arrays.asList(testFileName));
-		Assert.assertEquals(contentTest, content);
+		Assertions.assertEquals(contentTest, content);
 	}
 	
-	@After
+	@AfterEach
 	public void deleteCreatedFiles() {
 		File workspace = new File(".");
 		for(File f: workspace.listFiles()) {

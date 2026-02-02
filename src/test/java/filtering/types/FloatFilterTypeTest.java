@@ -2,9 +2,9 @@ package filtering.types;
 
 import java.util.Collections;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import filtering.types.FloatFilterType.FloatFilterStatistic;
 
@@ -14,7 +14,7 @@ public class FloatFilterTypeTest {
 	private FloatFilterType fft;
 	private FloatFilterStatistic ffs;
 	
-	@Before
+	@BeforeEach
 	public void createFilter() {
 		fft = new FloatFilterType();
 		ffs = (FloatFilterStatistic)fft.getFilterStatistic();
@@ -24,38 +24,38 @@ public class FloatFilterTypeTest {
 	
 	@Test
 	public void empty() {
-		Assert.assertEquals(Collections.emptyList(), fft.getAll());
+		Assertions.assertEquals(Collections.emptyList(), fft.getAll());
 		String logShort = String.format(LOG_SHORT, 0);
-		Assert.assertEquals(logShort, ffs.getShort());
+		Assertions.assertEquals(logShort, ffs.getShort());
 		String logFull = String.format(LOG_FULL, 0, "-", "-", "-", "-");
-		Assert.assertEquals(logFull, ffs.getFull());
+		Assertions.assertEquals(logFull, ffs.getFull());
 	}
 	
 	@Test
 	public void wrongValues() {
-		Assert.assertFalse(fft.isItType(null));
-		Assert.assertFalse(fft.isItType(""));
-		Assert.assertFalse(fft.isItType("null"));
-		Assert.assertFalse(fft.isItType("Строка"));
-		Assert.assertFalse(fft.isItType("100-455"));
-		Assert.assertFalse(fft.isItType("true"));
-		Assert.assertFalse(fft.isItType("Infinity"));
-		Assert.assertFalse(fft.isItType("-Infinity"));
-		Assert.assertFalse(fft.isItType("NaN"));
+		Assertions.assertFalse(fft.isItType(null));
+		Assertions.assertFalse(fft.isItType(""));
+		Assertions.assertFalse(fft.isItType("null"));
+		Assertions.assertFalse(fft.isItType("Строка"));
+		Assertions.assertFalse(fft.isItType("100-455"));
+		Assertions.assertFalse(fft.isItType("true"));
+		Assertions.assertFalse(fft.isItType("Infinity"));
+		Assertions.assertFalse(fft.isItType("-Infinity"));
+		Assertions.assertFalse(fft.isItType("NaN"));
 	}
 	
 	@Test
 	public void rightValues() {
-		Assert.assertTrue(fft.isItType("0"));
-		Assert.assertTrue(fft.isItType("256"));
-		Assert.assertTrue(fft.isItType("-256"));
-		Assert.assertTrue(fft.isItType("100.245"));
-		Assert.assertTrue(fft.isItType(String.valueOf(Double.MAX_VALUE)));
-		Assert.assertTrue(fft.isItType(String.valueOf(Double.MIN_VALUE)));
+		Assertions.assertTrue(fft.isItType("0"));
+		Assertions.assertTrue(fft.isItType("256"));
+		Assertions.assertTrue(fft.isItType("-256"));
+		Assertions.assertTrue(fft.isItType("100.245"));
+		Assertions.assertTrue(fft.isItType(String.valueOf(Double.MAX_VALUE)));
+		Assertions.assertTrue(fft.isItType(String.valueOf(Double.MIN_VALUE)));
 		
-		Assert.assertTrue(fft.isItType("3.1415"));
-		Assert.assertTrue(fft.isItType("-0.001"));
-		Assert.assertTrue(fft.isItType("1.528535047E-25"));
+		Assertions.assertTrue(fft.isItType("3.1415"));
+		Assertions.assertTrue(fft.isItType("-0.001"));
+		Assertions.assertTrue(fft.isItType("1.528535047E-25"));
 	}
 }
 

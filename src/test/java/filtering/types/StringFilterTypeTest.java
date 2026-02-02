@@ -2,9 +2,9 @@ package filtering.types;
 
 import java.util.Collections;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import filtering.types.StringFilterType.StringFilterStatistic;
 
@@ -14,7 +14,7 @@ public class StringFilterTypeTest {
 	private StringFilterType sft;
 	private StringFilterStatistic sfs;
 	
-	@Before
+	@BeforeEach
 	public void createFilter() {
 		sft = new StringFilterType();
 		sfs = (StringFilterStatistic)sft.getFilterStatistic();
@@ -24,39 +24,39 @@ public class StringFilterTypeTest {
 	
 	@Test
 	public void empty() {
-		Assert.assertEquals(Collections.emptyList(), sft.getAll());
+		Assertions.assertEquals(Collections.emptyList(), sft.getAll());
 		String logShort = String.format(LOG_SHORT, 0);
-		Assert.assertEquals(logShort, sfs.getShort());
+		Assertions.assertEquals(logShort, sfs.getShort());
 		String logFull = String.format(LOG_FULL, 0, "-", "-");
-		Assert.assertEquals(logFull, sfs.getFull());
+		Assertions.assertEquals(logFull, sfs.getFull());
 	}
 	
 	@Test
 	public void wrongValues() {
-		Assert.assertFalse(sft.isItType(null));
-		Assert.assertFalse(sft.isItType(""));
+		Assertions.assertFalse(sft.isItType(null));
+		Assertions.assertFalse(sft.isItType(""));
 	}
 	
 	@Test
 	public void rightValues() {
-		Assert.assertTrue(sft.isItType("0"));
-		Assert.assertTrue(sft.isItType("    "));
+		Assertions.assertTrue(sft.isItType("0"));
+		Assertions.assertTrue(sft.isItType("    "));
 		
-		Assert.assertTrue(sft.isItType("Lorem ipsum dolor sit amet"));
-		Assert.assertTrue(sft.isItType("Пример"));
-		Assert.assertTrue(sft.isItType("consectetur adipiscing"));
-		Assert.assertTrue(sft.isItType("тестовое задание"));
-		Assert.assertTrue(sft.isItType("Нормальная форма числа с плавающей запятой"));
-		Assert.assertTrue(sft.isItType("Long"));
+		Assertions.assertTrue(sft.isItType("Lorem ipsum dolor sit amet"));
+		Assertions.assertTrue(sft.isItType("Пример"));
+		Assertions.assertTrue(sft.isItType("consectetur adipiscing"));
+		Assertions.assertTrue(sft.isItType("тестовое задание"));
+		Assertions.assertTrue(sft.isItType("Нормальная форма числа с плавающей запятой"));
+		Assertions.assertTrue(sft.isItType("Long"));
 	}
 	
 	@Test
 	public void one() {
 		sft.add("Пример");
 		String logShort = String.format(LOG_SHORT, 1);
-		Assert.assertEquals(logShort, sfs.getShort());
+		Assertions.assertEquals(logShort, sfs.getShort());
 		String logFull = String.format(LOG_FULL, 1, "6", "6");
-		Assert.assertEquals(logFull, sfs.getFull());
+		Assertions.assertEquals(logFull, sfs.getFull());
 	}
 	
 	@Test
@@ -64,9 +64,9 @@ public class StringFilterTypeTest {
 		sft.add("тестовое задание");
 		sft.add("Long");
 		String logShort = String.format(LOG_SHORT, 2);
-		Assert.assertEquals(logShort, sfs.getShort());
+		Assertions.assertEquals(logShort, sfs.getShort());
 		String logFull = String.format(LOG_FULL, 2, "4", "16");
-		Assert.assertEquals(logFull, sfs.getFull());
+		Assertions.assertEquals(logFull, sfs.getFull());
 	}
 	
 	@Test
@@ -75,8 +75,8 @@ public class StringFilterTypeTest {
 		sft.add("тестовое задание");
 		sft.add("Longg");
 		String logShort = String.format(LOG_SHORT, 3);
-		Assert.assertEquals(logShort, sfs.getShort());
+		Assertions.assertEquals(logShort, sfs.getShort());
 		String logFull = String.format(LOG_FULL, 3, "3", "16");
-		Assert.assertEquals(logFull, sfs.getFull());
+		Assertions.assertEquals(logFull, sfs.getFull());
 	}
 }

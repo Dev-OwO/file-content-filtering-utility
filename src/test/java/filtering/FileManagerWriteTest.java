@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import filtering.types.IntegerFilterType;
 import filtering.types.StringFilterType;
@@ -23,7 +23,7 @@ public class FileManagerWriteTest {
 	private String anotherPath;
 	private StringFilterType sft;
 	
-	@Before
+	@BeforeEach
 	public void getAnotherPath() {
 		anotherPath = System.getProperty("java.io.tmpdir");
 		sft = getTestStringFilterType();
@@ -43,7 +43,7 @@ public class FileManagerWriteTest {
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
 		List<String> content = getContentFromFile("." + File.separator + testStringFile);
-		Assert.assertEquals(sft.getAll(), content);
+		Assertions.assertEquals(sft.getAll(), content);
 	}
 	
 	@Test
@@ -54,7 +54,7 @@ public class FileManagerWriteTest {
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
 		List<String> content = getContentFromFile("." + File.separator + testStringFile);
-		Assert.assertEquals(sft.getAll(), content);
+		Assertions.assertEquals(sft.getAll(), content);
 	}
 	
 	@Test
@@ -67,7 +67,7 @@ public class FileManagerWriteTest {
 		List<String> allContent = new LinkedList<>();
 		allContent.addAll(sft.getAll());
 		allContent.addAll(sft.getAll());
-		Assert.assertEquals(allContent, content);
+		Assertions.assertEquals(allContent, content);
 	}
 	
 	@Test
@@ -76,7 +76,7 @@ public class FileManagerWriteTest {
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
 		List<String> content = getContentFromFile("." + File.separator + "result_" + testStringFile);
-		Assert.assertEquals(sft.getAll(), content);
+		Assertions.assertEquals(sft.getAll(), content);
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class FileManagerWriteTest {
 		fileManager.saveToFiles(Arrays.asList(sft));
 		
 		List<String> content = getContentFromFile(anotherPath + File.separator + testStringFile);
-		Assert.assertEquals(sft.getAll(), content);
+		Assertions.assertEquals(sft.getAll(), content);
 	}
 	
 	@Test
@@ -96,9 +96,9 @@ public class FileManagerWriteTest {
 		fileManager.saveToFiles(Arrays.asList(sft, ift));
 		
 		List<String> content = getContentFromFile("." + File.separator + testStringFile);
-		Assert.assertEquals(sft.getAll(), content);
+		Assertions.assertEquals(sft.getAll(), content);
 		File fileWithIntegers = new File("." + File.separator + testIntegerFile);
-		Assert.assertFalse(fileWithIntegers.exists());
+		Assertions.assertFalse(fileWithIntegers.exists());
 	}
 	
 	@Test
@@ -111,9 +111,9 @@ public class FileManagerWriteTest {
 		fileManager.saveToFiles(Arrays.asList(sft, ift));
 		
 		List<String> content = getContentFromFile(anotherPath + File.separator + "result_" + testStringFile);
-		Assert.assertEquals(sft.getAll(), content);
+		Assertions.assertEquals(sft.getAll(), content);
 		List<String> content2 = getContentFromFile(anotherPath + File.separator + "result_" + testIntegerFile);
-		Assert.assertEquals(ift.getAll(), content2);
+		Assertions.assertEquals(ift.getAll(), content2);
 	}
 	
 	@Test
@@ -128,7 +128,7 @@ public class FileManagerWriteTest {
 		fileManager.saveToFiles(Arrays.asList(sft));
 	}
 	
-	@After
+	@AfterEach
 	public void deleteCreatedFiles() {
 		File workspace = new File(".");
 		File temp = new File(anotherPath);
