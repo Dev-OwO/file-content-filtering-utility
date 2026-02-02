@@ -1,17 +1,46 @@
 # Реализация тестового задания
 
-Данный проект представляет реализацию тестового задания.
+Данный проект представляет реализацию тестового задания для курса ШИФТ.
 
 ПО позволяет разбить содержимое указанных файлов по 3-ем типам данных: вещественные числа, целые числа и строки.
 
 Особенности реализации:
-- Java 21
-- Система сборки Maven 3.9.9
-- Для автоматизированного тестирования используется JUnit 5.14.2
+- Java 17 (Open JDK 17.0.2 можно взять здесь: https://jdk.java.net/archive/)
+- Система сборки Maven 3.9.9 (https://archive.apache.org/dist/maven/maven-3/3.9.9/binaries/)
+- Для автоматизированного тестирования используется JUnit 5.14.2, описание зависимости в pom.xml:
 
-Запускается проект в командной строке, пример команды:
+```
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-engine</artifactId>
+  <version>5.14.2</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-api</artifactId>
+  <version>5.14.2</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-params</artifactId>
+  <version>5.14.2</version>
+  <scope>test</scope>
+</dependency>
+```
 
-'''java -jar util.jar -s -a -p sample- in1.txt in2.txt'''
+Сборку проекта можно выполнить с помощью команды в корневом каталоге проекта:
+
+```
+mvn clean build
+```
+
+Проект запускается в командной строке, пример команды:
+
+```
+java -jar file_content_utility-1.0.0.jar -s -a -p sample- in1.txt in2.txt
+```
 
 В команде могут присутствовать следующие аргументы:
 - -o - задать путь для результатов, отличный от пути по умолчанию (директория запуска утилиты)
@@ -21,7 +50,7 @@
 - -f - вывести полную статистику по отфильтрованным данным
 - в конце необходимо указать список файлов с данными
 
-Прогрмма может сообщить о следующих ошибках в консоль:
+Программа может сообщить о следующих ошибках в консоль:
 - Есть неизвестные аргументы
 - Нет файлов для обработки
 - Нет данных для обработки
