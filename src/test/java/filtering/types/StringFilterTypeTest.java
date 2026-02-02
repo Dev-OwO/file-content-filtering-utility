@@ -79,4 +79,18 @@ public class StringFilterTypeTest {
 		String logFull = String.format(LOG_FULL, 3, "3", "16");
 		Assertions.assertEquals(logFull, sfs.getFull());
 	}
+	
+	@Test
+	public void many() {
+		sft.add("Lorem ipsum dolor sit amet");
+		sft.add("Пример");
+		sft.add("consectetur adipiscing");
+		sft.add("тестовое задание");
+		sft.add("Нормальная форма числа с плавающей запятой");
+		sft.add("Long");
+		String logShort = String.format(LOG_SHORT, 6);
+		Assertions.assertEquals(logShort, sfs.getShort());
+		String logFull = String.format(LOG_FULL, 6, "4", "42");
+		Assertions.assertEquals(logFull, sfs.getFull());
+	}
 }

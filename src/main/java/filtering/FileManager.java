@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ class FileManager {
 		
 		List<String> content = new LinkedList<>();
 		for(File f: files) {
-			try(FileReader fr = new FileReader(f);
+			try(FileReader fr = new FileReader(f, Charset.forName("UTF-8"));
 					BufferedReader br = new BufferedReader(fr)) {
 				String line;
 				while ((line = br.readLine()) != null) {
